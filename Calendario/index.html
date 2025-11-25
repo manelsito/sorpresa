@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calendario de Adviento — 1 a 24</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #08121a;
+      --panel: #071017;
+      --red: #c22b2b;
+      --green: #1f7a3a;
+      --gold: #d4a017;
+      --accent: #f7f7f7;
+      --glass: rgba(255,255,255,0.04);
+      --shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg, #04121a 0%, #071828 60%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.02)"/></svg>') repeat;
+      color:var(--accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .card{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .logo{
+      width:66px;height:66px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--green),var(--red));
+      color:white;font-weight:800;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,0.45);
+    }
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:rgba(255,255,255,0.75);font-size:14px}
+
+    /* Grid */
+    .grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap:12px;
+    }
+    @media (max-width:820px){
+      .grid{grid-template-columns: repeat(4, 1fr);}
+    }
+    @media (max-width:520px){
+      .grid{grid-template-columns: repeat(3, 1fr);}
+    }
+
+    .day{
+      aspect-ratio: 1/1;
+      background:var(--glass);
+      border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      text-decoration:none;color:var(--accent);
+      font-weight:700;font-size:20px;
+      position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+    .day:focus{outline:3px solid rgba(212,160,23,0.18);outline-offset:3px}
+    .day:hover{transform:translateY(-6px) scale(1.02)}
+
+    /* number badge */
+    .num{
+      width:64px;height:64px;border-radius:10px;display:grid;place-items:center;font-size:20px;font-weight:800;
+      color:white;box-shadow:0 6px 14px rgba(0,0,0,0.45);
+      transform:translateY(-6px);
+    }
+    /* alternate festive colors */
+    .day:nth-child(3n+1) .num{background:linear-gradient(180deg,var(--red),#a21f1f)}
+    .day:nth-child(3n+2) .num{background:linear-gradient(180deg,var(--green),#16592a)}
+    .day:nth-child(3n)   .num{background:linear-gradient(180deg,var(--gold),#b58316);color:#111}
+
+    /* small decorative corner */
+    .day::after{
+      content:'';position:absolute;right:-30px;top:-30px;width:100px;height:100px;border-radius:40px;opacity:.06;transform:rotate(25deg);
+      background:linear-gradient(45deg,var(--gold),transparent);
+    }
+
+    footer{margin-top:18px;text-align:right;color:rgba(255,255,255,0.6);font-size:13px}
+
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <header>
+      <div class="logo" aria-hidden>24</div>
+      <div>
+        <h1>Calendario de Adviento — 1 a 24</h1>
+        <p class="lead">Haz clic en un día para abrir su página. Puedes crear archivos <code>day-1.html</code> ... <code>day-24.html</code>.</p>
+      </div>
+    </header>
+
+    <nav aria-label="Calendario de Adviento">
+      <ul class="grid" role="list">
+        <!-- 24 días -->
+        <!-- Cada enlace apunta a "day-<n>.html". Modifica target si quieres abrir en nueva pestaña. -->
+        
+        <!-- Generado manualmente para claridad -->
+        <li><a class="day" href="day-1.html" aria-label="Día 1: abrir página"><span class="num">1</span></a></li>
+        <li><a class="day" href="day-2.html" aria-label="Día 2: abrir página"><span class="num">2</span></a></li>
+        <li><a class="day" href="day-3.html" aria-label="Día 3: abrir página"><span class="num">3</span></a></li>
+        <li><a class="day" href="day-4.html" aria-label="Día 4: abrir página"><span class="num">4</span></a></li>
+        <li><a class="day" href="day-5.html" aria-label="Día 5: abrir página"><span class="num">5</span></a></li>
+        <li><a class="day" href="day-6.html" aria-label="Día 6: abrir página"><span class="num">6</span></a></li>
+
+        <li><a class="day" href="day-7.html" aria-label="Día 7: abrir página"><span class="num">7</span></a></li>
+        <li><a class="day" href="day-8.html" aria-label="Día 8: abrir página"><span class="num">8</span></a></li>
+        <li><a class="day" href="day-9.html" aria-label="Día 9: abrir página"><span class="num">9</span></a></li>
+        <li><a class="day" href="day-10.html" aria-label="Día 10: abrir página"><span class="num">10</span></a></li>
+        <li><a class="day" href="day-11.html" aria-label="Día 11: abrir página"><span class="num">11</span></a></li>
+        <li><a class="day" href="day-12.html" aria-label="Día 12: abrir página"><span class="num">12</span></a></li>
+
+        <li><a class="day" href="day-13.html" aria-label="Día 13: abrir página"><span class="num">13</span></a></li>
+        <li><a class="day" href="day-14.html" aria-label="Día 14: abrir página"><span class="num">14</span></a></li>
+        <li><a class="day" href="day-15.html" aria-label="Día 15: abrir página"><span class="num">15</span></a></li>
+        <li><a class="day" href="day-16.html" aria-label="Día 16: abrir página"><span class="num">16</span></a></li>
+        <li><a class="day" href="day-17.html" aria-label="Día 17: abrir página"><span class="num">17</span></a></li>
+        <li><a class="day" href="day-18.html" aria-label="Día 18: abrir página"><span class="num">18</span></a></li>
+
+        <li><a class="day" href="day-19.html" aria-label="Día 19: abrir página"><span class="num">19</span></a></li>
+        <li><a class="day" href="day-20.html" aria-label="Día 20: abrir página"><span class="num">20</span></a></li>
+        <li><a class="day" href="day-21.html" aria-label="Día 21: abrir página"><span class="num">21</span></a></li>
+        <li><a class="day" href="day-22.html" aria-label="Día 22: abrir página"><span class="num">22</span></a></li>
+        <li><a class="day" href="day-23.html" aria-label="Día 23: abrir página"><span class="num">23</span></a></li>
+        <li><a class="day" href="day-24.html" aria-label="Día 24: abrir página"><span class="num">24</span></a></li>
+
+      </ul>
+    </nav>
+
+    <footer>Diseñado para impresionar — ¡Feliz temporada navideña! 🎄</footer>
+  </main>
+
+  <script>
+    // Bloquear días futuros manteniendo accesibles los días pasados
+    (function(){
+      const today = new Date();
+      const currentDay = today.getDate();
+
+      // Solo restringimos entre el 1 y 24 de diciembre
+      const month = today.getMonth(); // 0=enero, 11=diciembre
+      const isDecember = month === 11;
+
+      document.querySelectorAll('.grid .day').forEach(a => {
+        const num = parseInt(a.querySelector('.num').textContent, 10);
+
+        if (isDecember) {
+          if (num > currentDay) {
+            // Día futuro → bloquear
+            a.classList.add('locked');
+            a.addEventListener('click', e => e.preventDefault());
+          }
+        } else {
+          // Si no es diciembre, bloqueamos todos excepto el 1 (opcional)
+          if (num > 1) {
+            a.classList.add('locked');
+            a.addEventListener('click', e => e.preventDefault());
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
