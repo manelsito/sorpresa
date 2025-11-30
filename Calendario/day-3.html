@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 3</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08121a;
+    --panel: #071017;
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --gold: #d4a017;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  img {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+
+  input {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    width: 80%;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    background: var(--green);
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+
+<body>
+  <div class="contenido">
+    <h1>Día 3: QUIZZZZZ</h1>
+
+    <!-- PAGINA 1 -->
+    <div id="pagina1">
+      <p><strong>Pregunta 1:</strong> ¿Cuál es el color favorito del Manel?</p>
+      <input type="text" id="respuesta1" placeholder="Tu respuesta...">
+      <button onclick="validar(1, 'verde')">Enviar</button>
+      <p id="error1" class="error-text hidden" style="color: #1f7a3a;">Muy malamente</p>
+      <img id="img1" class="hidden" src="../src/img/sorpresa.jpg" alt="Error 1">
+    </div>
+
+    <!-- PAGINA 2 -->
+    <div id="pagina2" class="hidden">
+      <p><strong>Pregunta 2:</strong> 🤨🤨🤨🤨🤨🤨Que lleva la madre de Bernarda en brazos mientras recita un poema?🤨🤨🤨🤨🤨🤨</p>
+      <input type="text" id="respuesta2" placeholder="Tu respuesta...">
+      <button onclick="validar(2, 'oveja')">Enviar</button>
+      <p id="error2" class="error-text hidden">Beeeeeeee... Digo... Malameeeeeent...</p>
+      <img id="img2" class="hidden" src="../src/img/oveja.jpg" alt="Error 2">
+    </div>
+
+    <!-- PAGINA 3 -->
+    <div id="pagina3" class="hidden">
+      <p><strong>Pregunta 3:</strong> Cuanto hace que no le haces formiguetes al Manel?</p>
+      <input type="text" id="respuesta3" placeholder="Tu respuesta...">
+      <button onclick="validar(3, 'muchisimo')">Enviar</button>
+      <p id="error3" class="error-text hidden">Muchisimo... La respuesta es muchisimo...<br><br>My actual reaction:</p>
+      <img id="img3" class="hidden" src="../src/img/formigueta.jpg" alt="Error 3">
+    </div>
+
+    <!-- PAGINA 4 -->
+    <div id="pagina4" class="hidden">
+      <p><strong>Pregunta 4:</strong> Cuál es el videojueguito favorito del Manel?</p>
+      <input type="text" id="respuesta4" placeholder="Tu respuesta...">
+      <button onclick="validar(4, 'outer wilds')">Enviar</button>
+      <p id="error4" class="error-text hidden">pin pon pin</p>
+      <img id="img4" class="hidden" src="../src/img/outer-wilds.jpg" alt="Error 4">
+    </div>
+
+    <!-- FINAL -->
+    <div id="final" class="hidden">
+      <h2>🎉 Molt bé! 🎉</h2>
+      <p>Te dejo por aqui una palabrita que de momento no entenderás mucho...</p>
+      <p>LEPRECHAUN</p>
+    </div>
+
+  </div>
+
+<script>
+function normalizar(texto) {
+  return texto.trim().toLowerCase();
+}
+
+function validar(pagina, correcta) {
+  const respuesta = document.getElementById("respuesta" + pagina).value;
+  const imgError = document.getElementById("img" + pagina);
+  const txtError = document.getElementById("error" + pagina);
+
+  if (normalizar(respuesta) === normalizar(correcta)) {
+
+    // Ocultar imagen + texto de error si estaban visibles
+    imgError.classList.add("hidden");
+    txtError.classList.add("hidden");
+
+    // Ocultar la página actual
+    document.getElementById("pagina" + pagina).classList.add("hidden");
+
+    // Mostrar la siguiente página o final
+    if (pagina < 4) {
+      document.getElementById("pagina" + (pagina + 1)).classList.remove("hidden");
+    } else {
+      document.getElementById("final").classList.remove("hidden");
+    }
+
+  } else {
+    // Mostrar texto + imagen de error si falla
+    txtError.classList.remove("hidden");
+    imgError.classList.remove("hidden");
+  }
+}
+</script>
+
+</body>
+</html>

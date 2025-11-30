@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Día 1</title>
+<title>Día 2</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,40 +51,56 @@
   }
 
   p {
-    font-size: 16px;
+    font-size: 18px;
     color: rgba(255,255,255,0.75);
   }
 
-  img {
+  .foto {
     max-width: 100%;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   }
+
+.texto {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.foto-contenedor {
+  position: relative;
+  display: inline-block;
+}
+
+.fecha {
+  position: absolute;
+  transform: rotate(-15deg);
+  top: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.6);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  backdrop-filter: blur(3px);
+}
+
 </style>
 </head>
 
 <body>
   <div class="contenido">
-    <h1>1 DE DICIEMBRE!!!</h1>
-    <p>
-      Empieza diciembre <br>
-      Y toda la ilusión nos viene de frente <br>
-      Espero que estés preparada  <br>
-      Para un calendario diferente <br><br>
-
-      Quiero que cada día tengas una sorpresa<br>
-      Que por pequeña que sea te saque una sonrisa<br>
-      Nada me daría más alegría<br>
-      Que ver contenta a mi princesa <br><br>
-
-      Aquí dentro verás fotos, imágenes, música y textos<br>
-      Y quizá algo más<br>
-      Hoy empieza el calendario<br>
-      Que espero que no olvides jamás <br><br><br>
-
-
-      Manelic
-    </p>
+    <h1>Día 2</h1>
+    <p>Mira estos dos 👇👇</p>
+    <div class="foto-contenedor">
+      <img class="foto" src="../src/img/foto-antigua.jpg" alt="Imagen del día">
+      <span class="fecha">2022</span>
+    </div>
+    <div class="texto">
+      <p>Aun no saben lo que les espera... </p>
+      <img src="../src/img/jerry2.png" style="width:80px; height:auto;">
+    </div>
   </div>
 </body>
 </html>
