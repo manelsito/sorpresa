@@ -3,73 +3,266 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Día X</title>
+<title>Dia 5</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-  :root {
-    --bg: #08121a;
-    --panel: #071017;
-    --red: #c22b2b;
-    --green: #1f7a3a;
-    --gold: #d4a017;
-    --accent: #f7f7f7;
-  }
-
   body {
     margin: 0;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: linear-gradient(180deg, #04121a 0%, #071828 60%);
-    color: var(--accent);
+    color: #fff;
+    padding: 20px;
   }
 
-  .contenido {
+  .box {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 40px 30px;
     border-radius: 18px;
+    max-width: 750px;
+    width: 100%;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    max-width: 700px;
-    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
   h1 {
-    margin-top: 0;
-    font-size: 32px;
-    background: linear-gradient(90deg, var(--red), var(--green));
+    background: linear-gradient(90deg, #d4a017, #c22b2b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-size: 34px;
     font-weight: 800;
   }
 
-  p {
-    font-size: 18px;
-    color: rgba(255,255,255,0.75);
+  select, input {
+    width: 80%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 12px 22px;
+    background: #1f7a3a;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .hidden { display: none; }
+
+  .error {
+    font-weight: 700;
+    margin-top: 15px;
+    color: #c22b2b;
   }
 
   img {
-    max-width: 100%;
+    max-width: 90%;
+    margin-top: 20px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
 </head>
 
 <body>
-  <div class="contenido">
-    <h1>¡Sorpresa del Día X!</h1>
-    <p>Aquí puedes poner cualquier texto, imagen o sorpresa.</p>
 
-    <!-- EJEMPLO: puedes borrar esto -->
-    <!-- <img src="tu-imagen.jpg" alt="Imagen del día"> -->
+<div class="box" id="content">
+
+  <!-- PANTALLA 1 -->
+  <div id="screen1">
+    <h1>Dia... ¿Que?🕵️</h1>
+    <p>
+      Hola Èlia... Ha sucedido una sucedura...<br>
+      Han secuestrado al Manel, por eso ayer no hubo sorpresa.<br>
+      Necesitamos que lo encuentres o no podrá seguir con el calendario.
+    </p>
+    <button onclick="go(2)">Comenzar</button>
   </div>
+
+  <!-- PREGUNTA 1 -->
+  <div id="screen2" class="hidden">
+    <h2>Pregunta 1</h2>
+    <p>Como novia del desaparecido, quien crees que puede ser el principal sospechoso?</p>
+
+    <select id="q1">
+      <option value="">Elige una opción</option>
+      <option value="a">Alex</option>
+      <option value="b">La Lula</option>
+      <option value="c">Judith</option>
+    </select>
+
+    <button onclick="check(1)">Responder</button>
+
+    <p id="err1" class="error hidden"></p>
+  </div>
+
+  <!-- PREGUNTA 2 -->
+  <div id="screen3" class="hidden">
+    <h2>Pregunta 2</h2>
+    <p>Mmm... Que podriamos preguntarle a la Lula?</p>
+
+    <select id="q2">
+      <option value="">Elige una opción</option>
+      <option value="a">Qui es la més bonica???</option>
+      <option value="b">Te gustan los frankfurts?</option>
+      <option value="c">Donde estuviste el dia de la desaparición?</option>
+    </select>
+
+    <button onclick="check(2)">Responder</button>
+
+    <p id="err2" class="error hidden"></p>
+  </div>
+
+  <!-- PREGUNTA 3 -->
+  <div id="screen4" class="hidden">
+    <h2>Pregunta 3</h2>
+    <p><strong>La Lula explica que estuvo en casa el dia de la desaparición. Justo donde desapareció el Manel!</strong><br>
+      Está claro que ha sido la Lula. Tenemos que saber como lo hizo.
+    </p>
+
+    <select id="q3">
+      <option value="">Elige una opción</option>
+      <option value="a">Como lo hiciste?</option>
+      <option value="b">Poteta</option>
+      <option value="c">Seu</option>
+    </select>
+
+    <button onclick="check(3)">Responder</button>
+
+    <p id="err3" class="error hidden"></p>
+  </div>
+
+  <!-- PREGUNTA 4 -->
+  <div id="screen5" class="hidden">
+    <h2>Pregunta 4</h2>
+    <p><strong>La Lula sigue diciendo que no fue ella, pero te fijas en una pequeña marca de sangre en una de sus garras...</strong></p>
+
+    <select id="q4">
+      <option value="">Elige una opción</option>
+      <option value="a">Hacerte la loca</option>
+      <option value="b">Eso de tu garra es sangre?</option>
+      <option value="c">Limpiarla para que nadie lo vea</option>
+    </select>
+
+    <button onclick="check(4)">Responder</button>
+
+    <p id="err4" class="error hidden"></p>
+  </div>
+
+  <!-- PREGUNTA 5 -->
+  <div id="screen6" class="hidden">
+    <h2>Pregunta 5</h2>
+    <p><strong>La Lula empieza a ponerse nerviosa. Tenemos un culpable.</strong></p>
+
+    <select id="q5">
+      <option value="">Elige una opción</option>
+      <option value="a">No arrestar a la Lula</option>
+      <option value="b">Dudar</option>
+      <option value="c">Arrestar a la Lula</option>
+    </select>
+
+    <button onclick="check(5)">Responder</button>
+
+    <p id="err5" class="error hidden"></p>
+  </div>
+
+  <!-- FINAL -->
+  <div id="screen7" class="hidden">
+    <h2>Caso resuelto</h2>
+    <p>Muy bien, ahora nos encargaremos de sacarle la información de donde está el Manel... <br>
+      <strong>ring ring</strong><br>
+      Me acaban de llamar, dicen que la Lula ha dicho que la marca de sangre realmente es tomate de los macarrones que se comió a escondidas... Y dice que la ultima vez que vio al Manel fue en su cuarto... No entiendo...
+    </p>
+    <button onclick="go(8)">Ir al cuarto del Manel</button>
+  </div>
+
+  <div id="screen8" class="hidden">
+    <h2>NO WAY</h2>
+    <p>El Manel se habia escondido para jugar al minecraft!!!</p>
+    <img src="../src/img/manel.jpg">
+  </div>
+
+</div>
+
+<script>
+// RESPUESTAS CORRECTAS (edita esto)
+const correct = {
+  1: "b",
+  2: "c",
+  3: "a",
+  4: "b",
+  5: "c"
+};
+
+// MENSAJES e IMÁGENES según respuesta incorrecta elegida
+// Aquí es donde tú pones LOS MENSAJES PERSONALIZADOS
+const mensajes = {
+  1: {
+    a: { msg: "❌ No puede ser, estaba en el rugby"},
+    c: { msg: "❌ No puede ser, estaba en la piscina."}
+  },
+  2: {
+    a: { msg: "❌ Por favor, seriedad"},
+    b: { msg: "❌ TENEMOS UN DESAPARECIDO!"}
+  },
+  3: {
+    b: { msg: "❌ La Lula te da la poteta."},
+    c: { msg: "❌ La Lula seu."}
+  },
+  4: {
+    a: { msg: "❌ Estás encubriendo a la Lula???."},
+    c: { msg: "❌ Estás eliminando pruebas???."}
+  },
+  5: {
+    a: { msg: "❌ Eres boba? Esta claro que es ella."},
+    b: { msg: "❌ Eres boba? Esta claro que es ella."}
+  }
+};
+
+function go(n) {
+  document.querySelectorAll(".box > div").forEach(div => div.classList.add("hidden"));
+  document.getElementById("screen" + n).classList.remove("hidden");
+}
+
+function check(num) {
+  const val = document.getElementById("q" + num).value;
+  const err = document.getElementById("err" + num);
+
+  err.classList.add("hidden");
+
+  if (val === "") {
+    err.textContent = "❌ Debes elegir una opción.";
+    err.classList.remove("hidden");
+    return;
+  }
+
+  if (val === correct[num]) {
+    go(num + 2);
+  } else {
+    if (mensajes[num][val]) {
+      err.textContent = mensajes[num][val].msg;
+    } else {
+      err.textContent = "❌ Respuesta incorrecta.";
+    }
+
+    err.classList.remove("hidden");
+  }
+}
+</script>
+
 </body>
 </html>

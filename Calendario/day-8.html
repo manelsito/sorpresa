@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Día 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08121a;
+    --panel: #071017;
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --gold: #d4a017;
+    --accent: #f7f7f7;
+  }
+
+  html,body{height:100%;}
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    max-width: 820px;
+    width: 92%;
+    text-align: center;
+  }
+
+  h1{
+    margin:0 0 12px 0;
+    font-size:28px;
+    font-weight:800;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {color: rgba(255,255,255,0.75); margin:0 0 18px 0}
+
+  /* Tinder-like stack */
+  .stack-wrap{
+    position:relative;
+    width:720px;
+    max-width:100%;
+    height:460px;
+    margin: 0 auto 16px auto;
+    perspective:1200px;
+  }
+
+  .card {
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+    background:#111;
+    cursor: pointer;
+    user-select:none;
+    transition: transform 400ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .card img{width:100%; height:100%; object-fit:cover; display:block}
+
+  /* stacked look */
+  .card[data-index="0"]{z-index:60}
+  .card[data-index="1"]{z-index:50; transform: translate(-50%,-44%) scale(0.97); }
+  .card[data-index="2"]{z-index:40; transform: translate(-50%,-40%) scale(0.94);}
+  .card[data-index="3"]{z-index:30; transform: translate(-50%,-38%) scale(0.91);}
+
+  /* left/right click zones */
+  .click-zone{
+    position:absolute; top:0; bottom:0; width:50%;
+    z-index:80; opacity:0; /* invisible but clickable */
+  }
+  .click-zone.left{ left:0 }
+  .click-zone.right{ right:0 }
+
+  /* controls */
+  .controls{display:flex; gap:12px; justify-content:center}
+  .btn{background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.06); padding:10px 14px; border-radius:10px; color:var(--accent); cursor:pointer}
+  .btn:active{transform:translateY(1px)}
+
+  .hint{font-size:13px; color:rgba(255,255,255,0.55); margin-top:10px}
+
+  @media (max-width:520px){
+    .stack-wrap{height:380px}
+  }
+</style>
+</head>
+<body>
+  <div class="contenido">
+    <h1>Día 8: Collage de fotos</h1>
+    <p>Te tiro por aqui unas cuantas fotos randoms sin ningun sentido. Haz click a la derecha para avanzar, a la izquierda para retroceder. También puedes usar ← → si estas desde el ordenadorrrr</p>
+
+    <div class="stack-wrap" id="stack">
+      <!-- cards se inyectan por JS -->
+      <!-- zonas clickables sobre la tarjeta superior -->
+      <div class="click-zone left" id="leftZone"></div>
+      <div class="click-zone right" id="rightZone"></div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="prevBtn">← Atrás</button>
+      <button class="btn" id="nextBtn">Adelante →</button>
+    </div>
+  </div>
+
+<script>
+// -------------------------------
+// CONFIG: añade aquí tus imágenes
+// Puedes usar URLs absolutas o nombres de archivos locales si sirves el html desde tu máquina
+const images = [
+  '../src/img/random0.jpg',
+  '../src/img/random1.jpg',
+  '../src/img/random2.jpg',
+  '../src/img/random3.jpg',
+  '../src/img/random4.jpg',
+  '../src/img/random5.jpg',
+  '../src/img/lula.jpg',
+  '../src/img/random6.jpg',
+  '../src/img/random7.jpg',
+  '../src/img/random8.jpg',
+  '../src/img/random9.jpg',
+  '../src/img/random10.jpg',
+  '../src/img/random11.jpg',
+  '../src/img/random12.jpg'
+];
+// -------------------------------
+
+const stack = document.getElementById('stack');
+let current = 0; // índice de la tarjeta superior
+let cards = [];
+
+function createCard(src, idx){
+  const c = document.createElement('div');
+  c.className = 'card';
+  c.dataset.index = idx;
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = 'Foto ' + (idx+1);
+  c.appendChild(img);
+  stack.appendChild(c);
+  return c;
+}
+
+function render(){
+  // limpiar
+  stack.querySelectorAll('.card').forEach(n=>n.remove());
+  cards = [];
+
+  // colocamos desde current hacia adelante (hacia la derecha)
+  for(let i=0;i<images.length;i++){
+    const idx = (current + i) % images.length;
+    const card = createCard(images[idx], i);
+    card.style.transition = 'transform 400ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease';
+    card.style.opacity = 1;
+    // damos aspecto de pila solo a las primeras 4
+    if(i>3) { card.style.transform = 'translate(-50%,-30%) scale(0.88)'; card.style.zIndex = 10 - i; }
+    card.dataset.stackPos = i; // posición en pila
+    cards.push(card);
+  }
+
+  // actualizamos transforms para los primeros 4 para el efecto escalonado
+  cards.forEach((card,i)=>{
+    card.setAttribute('data-index', i);
+    if(i===0){ card.style.transform = 'translate(-50%,-50%) scale(1) rotate(0deg)'; card.style.zIndex = 60 }
+    if(i===1){ card.style.transform = 'translate(-50%,-44%) scale(0.97)'; card.style.zIndex = 50 }
+    if(i===2){ card.style.transform = 'translate(-50%,-40%) scale(0.94)'; card.style.zIndex = 40 }
+    if(i===3){ card.style.transform = 'translate(-50%,-38%) scale(0.91)'; card.style.zIndex = 30 }
+  });
+
+  attachTopBehaviours();
+}
+
+function attachTopBehaviours(){
+  // zones capture clicks for next/prev
+  const leftZone = document.getElementById('leftZone');
+  const rightZone = document.getElementById('rightZone');
+  leftZone.onclick = () => prev();
+  rightZone.onclick = () => next();
+
+  // clicking the top card itself also advances
+  if(cards[0]){
+    cards[0].onclick = (e)=>{
+      // si se hace click en mitad izquierda o derecha
+      const rect = cards[0].getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      if(x < rect.width/2) prev(); else next();
+    }
+  }
+}
+
+function animateOut(card, direction /* 1 right, -1 left */){
+  // muevo la tarjeta fuera y la oculto
+  const offX = direction * (window.innerWidth + 200);
+  card.style.transition = 'transform 600ms cubic-bezier(.2,.8,.2,1), opacity 300ms ease';
+  card.style.transform = `translate(${offX}px, -50%) rotate(${direction*25}deg)`;
+  card.style.opacity = 0;
+}
+
+function next(){
+  if(!cards.length) return;
+  const top = cards[0];
+  animateOut(top, 1);
+  // subir el índice de la pila
+  current = (current + 1) % images.length;
+  // re-render con pequeño delay para animación
+  setTimeout(render, 220);
+}
+
+function prev(){
+  if(!cards.length) return;
+  const top = cards[0];
+  animateOut(top, -1);
+  // retroceder el índice
+  current = (current - 1 + images.length) % images.length;
+  // Para que parezca que retrocedes, rotamos la lista: mostraremos desde current
+  setTimeout(render, 220);
+}
+
+// botones
+document.getElementById('nextBtn').addEventListener('click', next);
+document.getElementById('prevBtn').addEventListener('click', prev);
+
+// teclado
+window.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowRight') next();
+  if(e.key === 'ArrowLeft') prev();
+});
+
+// touch: soporte básico de swipe
+let startX = null;
+stack.addEventListener('touchstart', e=>{ startX = e.changedTouches[0].clientX; });
+stack.addEventListener('touchend', e=>{
+  if(startX === null) return;
+  const dx = e.changedTouches[0].clientX - startX;
+  if(Math.abs(dx) > 60){ if(dx > 0) prev(); else next(); }
+  startX = null;
+});
+
+// inicializar
+render();
+
+</script>
+</body>
+</html>

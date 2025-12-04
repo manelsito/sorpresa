@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dia 6</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: #fff;
+    text-align: center;
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 650px;
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 32px;
+    background: linear-gradient(90deg, #1f7a3a, #c22b2b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  input {
+    width: 80%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 12px 22px;
+    background: #1f7a3a;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .hidden { display: none; }
+
+  img {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+
+<body>
+
+<div class="contenido">
+  <h1>Día 6... ¡Canción!</h1>
+
+  <p>A ver si consigues adivinar la canción sin recurrir a Shazam... Me pondria muy contento😁</p>
+
+  <!-- AUDIO -->
+  <audio controls>
+    <source src="../src/music/GiveUp.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <br><br>
+  
+  <input type="text" id="respuesta" placeholder="Escribe el nombre de la canción...">
+  <button onclick="check()">Enviar</button>
+
+  <p id="mensajeError" class="error hidden">❌ Nopp, atenta a la letra</p>
+
+  <p id="mensajeCorrecto" class="correcto hidden">✔️ Yeepp <br>
+    Una cancion que expresa el sentimiento de vacio y frustración ante las espectativas. Una de mis canciones favoritas. <br>
+    Te dejo otra palabrita rara por aqui... <br><br>
+    <strong>"PIPO"</strong> 
+  </p>
+</div>
+
+<script>
+// Canción correcta
+const correcta = "give up";
+
+function norm(t) { return t.trim().toLowerCase(); }
+
+function check() {
+  const respuesta = norm(document.getElementById("respuesta").value);
+
+  const errorTxt = document.getElementById("mensajeError");
+  const okTxt = document.getElementById("mensajeCorrecto");
+
+  // Ocultar todo antes de mostrar lo nuevo
+  errorTxt.classList.add("hidden");
+  okTxt.classList.add("hidden");
+
+  if (respuesta === norm(correcta)) {
+    okTxt.classList.remove("hidden");
+  } else {
+    errorTxt.classList.remove("hidden");
+  }
+}
+</script>
+
+</body>
+</html>
