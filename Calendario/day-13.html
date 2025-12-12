@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 13</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08121a;
+    --panel: #071017;
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --gold: #d4a017;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .contenido {
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .video-random {
+    position: absolute;
+    width: 35vw;
+    max-width: 180px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+
+  #v1 { top: 5%; left: 30%; }
+  #v2 { top: 60%; left: 10%; }
+  #v3 { top: 25%; right: 25%; }
+  #v4 { top: 75%; right: 12%; }
+  #v5 { top: 15%; left: 10%; }
+  #v6 { top: 50%; left: 70%; }
+  #v7 { top: 40%; left: 5%; }
+  #v8 { top: 1%; left: 70%; }
+
+  /* BOTÓN PARA ACTIVAR EL SONIDO */
+  #btn-sonido {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 20px 35px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+    z-index: 9999;
+    transition: 0.3s;
+  }
+
+  #btn-sonido:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- MÚSICA (muted para permitir autoplay) -->
+  <audio id="musica" src="../src/music/random.mp3" autoplay loop muted></audio>
+
+  <!-- BOTÓN CENTRADO PARA ACTIVAR EL SONIDO -->
+  <div id="btn-sonido">
+  Activar sonido????
+  </div>
+
+  <!-- VIDEOS -->
+  <video id="v1" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/aceituna.mp4" type="video/mp4">
+  </video>
+
+  <video id="v2" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/cara.mp4" type="video/mp4">
+  </video>
+
+  <video id="v3" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/baile2.mp4" type="video/mp4">
+  </video>
+
+  <video id="v4" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/coleta.mp4" type="video/mp4">
+  </video>
+
+  <video id="v5" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/oumama.mp4" type="video/mp4">
+  </video>
+
+  <video id="v6" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/baile1.mp4" type="video/mp4">
+  </video>
+
+  <video id="v7" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/grano.mp4" type="video/mp4">
+  </video>
+
+  <video id="v8" class="video-random" autoplay loop muted playsinline>
+    <source src="../src/video/calvo.mp4" type="video/mp4">
+  </video>
+
+<script>
+  const musica = document.getElementById("musica");
+  const btn = document.getElementById("btn-sonido");
+
+  btn.addEventListener("click", () => {
+    musica.muted = false;
+    musica.play();
+    btn.style.display = "none";
+  });
+</script>
+
+</body>
+</html>

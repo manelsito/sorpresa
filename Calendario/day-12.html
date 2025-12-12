@@ -22,16 +22,15 @@
   body {
     margin: 0;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'Montserrat', system-ui, sans-serif;
     background: linear-gradient(180deg, #04121a 0%, #071828 60%);
     color: var(--accent);
-    overflow: hidden; /* Para evitar scroll al poner los videos */
-    position: relative;
   }
 
   .contenido {
-    position: relative;
-    z-index: 10;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.06);
     padding: 40px 30px;
@@ -40,8 +39,6 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.4);
     max-width: 700px;
     width: 90%;
-    margin: auto;
-    margin-top: 20px;
   }
 
   h1 {
@@ -58,65 +55,118 @@
     color: rgba(255,255,255,0.75);
   }
 
-  /* Estilo general de los videos */
-  .video-random {
-    position: absolute;
-    width: 35vw;
-    max-width: 180px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    z-index: 1; /* detrás del panel */
+  .sopa {
+    font-family: monospace;
+    font-size: 22px;
+    letter-spacing: 6px;
+    line-height: 32px;
+    margin: 25px auto;
+    white-space: pre;
+    color: var(--accent);
   }
 
-  /* Posiciones aleatorias */
-  #v1 { top: 5%; left: 5%; }
-  #v2 { top: 60%; left: 10%; }
-  #v3 { top: 20%; right: 5%; }
-  #v4 { top: 75%; right: 12%; }
-  #v5 { top: 15%; left: 10%; }
-  #v6 { top: 50%; left: 70%; }
-
+  .lista {
+    margin-top: 20px;
+    font-size: 18px;
+  }
 </style>
 </head>
 
 <body>
+  <div class="contenido">
+    <h1>Día 11: SOPA DE LETRASSSSS</h1>
+    <p>Encuentra las 4 palabras ocultas:</p>
+    <div class="lista"><strong>GUAPITA — TEQUIERO — BODA — BESITO</strong></div>
 
-  <!-- MÚSICA DE FONDO (silenciada por defecto para permitir autoplay en móvil) -->
-  <audio id="musica" src="../src/music/random.mp3" autoplay loop muted></audio>
+    <div class="sopa" id="sopa"></div>
 
-  <script>
-    // En el primer toque de pantalla, activamos el sonido.
-    document.addEventListener("touchstart", function() {
-      const audio = document.getElementById("musica");
-      audio.muted = false;
-      audio.volume = 1;
-    }, { once: true });
-  </script>
+<script>
+const words = ["GUAPITA","TEQUIERO","BODA","BESITO"];
+const found = new Set();
+const grid = [
+  ["A","O","P","R","X","L","U","Z","P","Q"],
+  ["Q","R","G","R","T","Y","U","I","O","B"],
+  ["S","E","L","U","L","M","N","O","P","O"],
+  ["P","I","S","D","A","G","H","J","K","D"],
+  ["F","U","E","S","T","P","B","C","D","A"],
+  ["R","Q","Y","U","I","O","I","L","M","N"],
+  ["Z","E","C","V","B","N","M","T","R","S"],
+  ["H","T","K","L","Z","X","C","V","A","N"],
+  ["M","N","B","E","S","I","T","O","K","J"],
+];
 
-  <!-- VIDEOS ALEATORIOS -->
-  <video id="v1" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/aceituna.mp4" type="video/mp4">
-  </video>
+const cont = document.getElementById("sopa");
+let selected = [];
 
-  <video id="v2" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/cara.mp4" type="video/mp4">
-  </video>
+function render(){
+  cont.innerHTML = "";
+  grid.forEach((row,r)=>{
+    const div = document.createElement("div");
+    row.forEach((letter,c)=>{
+      const span = document.createElement("span");
+      span.textContent = letter;
+      span.style.cursor = "pointer";
+      span.style.padding = "4px";
+      span.dataset.r = r;
+      span.dataset.c = c;
+      span.onclick = ()=> toggleSelect(r,c,span);
+      div.appendChild(span);
+    });
+    cont.appendChild(div);
+  });
+  addVictoryMsg();
+}
 
-  <video id="v3" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/baile2.mp4" type="video/mp4">
-  </video>
+function toggleSelect(r,c,el){
+  const index = selected.findIndex(x=> x[0]===r && x[1]===c);
+  if(index >= 0){
+    selected.splice(index,1);
+    el.style.background = "none";
+  } else {
+    selected.push([r,c]);
+    el.style.background = "rgba(255,255,255,0.3)";
+  }
+  checkWord();
+}
 
-  <video id="v4" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/coleta.mp4" type="video/mp4">
-  </video>
+function checkWord(){
+  const text = selected.map(([r,c])=> grid[r][c]).join("");
+  for(const w of words){
+    if(text.endsWith(w)){
+      found.add(w);
+      lockWord(w);
+      selected = [];
+    }
+  }
+  checkVictory();
+}
 
-  <video id="v5" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/oumama.mp4" type="video/mp4">
-  </video>
+function lockWord(word){
+  // Keeps selected letters highlighted; no alert.
+}
 
-  <video id="v6" class="video-random" autoplay loop muted playsinline>
-    <source src="../src/video/baile1.mp4" type="video/mp4">
-  </video>
+function checkVictory(){
+  const msg = document.getElementById("victoria-msg");
+  if(found.size === words.length){
+    msg.textContent = "OleOlee. Cual quieres de las 4??? PD: recuerda que es el cumple de mi hermana :)";
+  }
+}
 
+function addVictoryMsg(){
+  let msg = document.getElementById("victoria-msg");
+  if(!msg){
+    msg = document.createElement("div");
+    msg.id = "victoria-msg";
+    msg.style.marginTop = "20px";
+    msg.style.fontSize = "20px";
+    msg.style.fontWeight = "600";
+    msg.style.color = "var(--green)";
+    cont.parentElement.appendChild(msg);
+  }
+}
+
+render();
+</script>
+  </div>
 </body>
 </html>
