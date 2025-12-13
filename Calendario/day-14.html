@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 14</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .opciones {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 16px;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+  }
+
+  .contenido img {
+  width: 260px !important;
+  max-width: 260px !important;
+  height: auto !important;
+  display: block;
+  margin: 25px auto 0;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+</style>
+</head>
+
+<body>
+  <div class="contenido">
+    <h1 id="titulo">Día 14: Historia interactiva</h1>
+    <p id="texto">A quien prefieres a la Lula o al Manel?</p>
+
+    <div class="opciones" id="opciones"></div>
+  </div>
+
+<script>
+const historia = {
+  inicio: {
+    texto: "Solo hay un good ending en esta historia, a ver si llegas a él a la primera. Luego te recomiendo ver todas las opciones jeje...<br><br>A quien prefieres a la Lula o al Manel?",
+    opciones: [
+      { texto: "Lula", siguiente: "camino_1" },
+      { texto: "Manel", siguiente: "camino_2" }
+    ]
+  },
+
+  camino_1: {
+    texto: "El Manel se pone triste, qué haces?",
+    opciones: [
+      { texto: "Le das sexo intenso", siguiente: "camino_1a" },
+      { texto: "Te ries de el y te vas con la Lula", siguiente: "camino_1b" }
+    ]
+  },
+
+  camino_2: {
+    texto: "A donde vas con el Manel?",
+    opciones: [
+      { texto: "A la montaña", siguiente: "camino_2a" },
+      { texto: "A la ciudad", siguiente: "camino_2b" }
+    ]
+  },
+
+  camino_1a: {
+    texto: "El Manel se viene arriba y te lo quiere comer, qué haces?",
+    opciones: [
+      { texto: "Le dejas", siguiente: "final_1" },
+      { texto: "No le dejas", siguiente: "final_2" }
+    ]
+  },
+
+  camino_1b: {
+    texto: "Qué haces con la Lula?",
+    opciones: [
+      { texto: "Ir al parque", siguiente: "final_3" },
+      { texto: "Ir a comer caca", siguiente: "final_4" }
+    ]
+  },
+
+  camino_2a: {
+    texto: "OH DIOS MIO el Manel se arrodilla y te pide matrimonio, qué haces?",
+    opciones: [
+      { texto: "Le dices que no", siguiente: "final_5" },
+      { texto: "Le dices que si", siguiente: "final_6" }
+    ]
+  },
+
+  camino_2b: {
+    texto: "Al Manel le entra un ataque de ansiedad porque fuk ciudad, qué haces?",
+    opciones: [
+      { texto: "Derrocas el sistema capitalista e instauras el comunismo", siguiente: "final_7" },
+      { texto: "Pasas de él porque és tontito", siguiente: "final_8" }
+    ]
+  },
+
+  final_1: { texto: "Bad ending: El Manel se ha pasado y te ha comido entera", imagen: "../src/img/sapasao.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_2: { texto: "Bad ending: El Manel está triste", imagen: "../src/img/maneltriste.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_3: { texto: "Bad ending: La Lula está triste porque quiere caca", imagen: "../src/img/lulatriste.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_4: { texto: "Bad ending: La Lula está contenta pero QUE ASCO", imagen: "../src/img/lula.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_5: { texto: "Bad ending: what the actually fuk¿¿¿", imagen: "../src/img/random14.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_6: { texto: "Good ending: LA PAREJA DEL SIGLO SE CASA", imagen: "../src/img/finalfeliz.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_7: { texto: "Bad ending: EEUU te bombardea", imagen: "../src/img/gatocomunista.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] },
+  final_8: { texto: "Bad ending: La Lula ha venido a salvar al Manel y te mata por maltratarlo", imagen: "../src/img/lulasalvadora.jpg", opciones: [{ texto: "Volver a empezar", siguiente: "inicio" }] }
+};
+
+const titulo = document.getElementById("titulo");
+const texto = document.getElementById("texto");
+const opcionesDiv = document.getElementById("opciones");
+
+function mostrar(nodo){
+  const escena = historia[nodo];
+  texto.innerHTML = escena.texto;
+
+  // limpiar opciones
+  opcionesDiv.innerHTML = "";
+
+  // eliminar imagen previa si existe
+  const oldImg = document.getElementById("final-img");
+  if(oldImg) oldImg.remove();
+
+  // crear botones de opciones
+  escena.opciones.forEach(op => {
+    const btn = document.createElement("button");
+    btn.textContent = op.texto;
+    btn.onclick = () => mostrar(op.siguiente);
+    opcionesDiv.appendChild(btn);
+  });
+
+  // si la escena tiene imagen, mostrarla DESPUÉS de los botones
+  if(escena.imagen){
+    const img = document.createElement("img");
+    img.id = "final-img";
+    img.src = escena.imagen;
+    document.querySelector(".contenido").appendChild(img);
+  }
+}
+
+mostrar("inicio");
+</script>
+</body>
+</html>
