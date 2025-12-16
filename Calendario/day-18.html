@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 18</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 20px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* AQUÍ NO PARECE ENLACE */
+  .aqui {
+    cursor: default;
+  }
+
+  button {
+    margin-top: 25px;
+    padding: 14px 30px;
+    font-size: 16px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    color: white;
+    font-weight: 600;
+  }
+
+  #pantalla2 {
+    display: none;
+  }
+
+  #pantalla3 {
+    display: none;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+
+  video {
+    max-width: 50%;
+    border-radius: 12px;
+    margin-top: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+
+<body>
+
+  <!-- PANTALLA 1 -->
+  <div class="contenido" id="pantalla1">
+    <h1>Día 18</h1>
+
+    <p onclick="avanzar()">
+      Pulsa <span class="aqui">aquí</span> para seguir...
+    </p>
+
+    <button onclick="nada()">Continuar</button>
+  </div>
+
+  <!-- PANTALLA 2 -->
+  <div class="contenido" id="pantalla2">
+    <h1>Día 18</h1>
+
+    <p>
+      Ya está. No hay más. Que más quieres? Conxus ya.
+    </p>
+
+    <button onclick="final()">Venga va algo más</button>
+  </div>
+
+  <!-- PANTALLA 3 -->
+  <div class="contenido" id="pantalla3">
+    <h1>Día 18</h1>
+    <video autoplay loop playsinline>
+      <source src="../src/video/gatogirando.mp4" type="video/mp4">
+      Tu navegador no soporta el video.
+    </video>
+    
+  </div>
+
+
+<script>
+  function avanzar() {
+    document.getElementById("pantalla1").style.display = "none";
+    document.getElementById("pantalla2").style.display = "block";
+  }
+
+  function nada() {
+    
+  }
+
+  function final() {
+    document.getElementById("pantalla2").style.display = "none";
+    const pantalla3 = document.getElementById("pantalla3");
+    pantalla3.style.display = "block";
+
+    // Forzar el autoplay
+    const video = pantalla3.querySelector("video");
+    video.play().catch(() => {
+      // En caso de que el navegador bloquee autoplay por sonido
+      video.muted = true;  // Silenciar para garantizar reproducción automática
+      video.play();
+    });
+  }
+</script>
+
+</body>
+</html>

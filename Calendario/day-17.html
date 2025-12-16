@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 17</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+
+  input {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    width: 80%;
+    max-width: 300px;
+    font-size: 16px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    color: white;
+    font-weight: 600;
+  }
+
+  .resultado {
+    display: none;
+    margin-top: 25px;
+  }
+
+  .error {
+    color: #ff6b6b;
+    margin-top: 10px;
+  }
+  #virus {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #0a2f1a, #000);
+  color: #00ff88;
+  font-family: monospace;
+  text-align: center;
+  padding-top: 60px;
+  animation: flicker 0.15s infinite;
+}
+
+#virus img {
+  max-width: 80%;
+  margin-top: 30px;
+  filter: contrast(1.4) saturate(1.6);
+}
+
+.glitch {
+  font-size: 32px;
+  font-weight: bold;
+  animation: glitch 0.3s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.95; }
+  100% { opacity: 1; }
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 red; }
+  25% { text-shadow: -2px 0 lime; }
+  50% { text-shadow: 2px 2px red; }
+  75% { text-shadow: -2px -2px lime; }
+  100% { text-shadow: 2px 0 red; }
+}
+
+</style>
+</head>
+
+<body>
+  <body>
+  <div class="contenido" id="inicio">
+    <h1>Día de premio!</h1>
+
+    <img src="../src/img/lulacagando.jpeg" alt="Imagen pista">
+
+    <p>
+      Enhorabuena!!! Has encontrado a la Lula cagona de la suerte.<br>
+      Corre! Antes de que se la coma, pregunta el codigo de premio por wasap
+      al siguiente número: 609507857
+    </p>
+
+    <input type="text" id="respuesta" placeholder="Código">
+    <br>
+    <button onclick="comprobar()">Canjear premio</button>
+
+    <div id="error" class="error"></div>
+  </div>
+
+  <!-- PANTALLA VIRUS -->
+  <div id="virus">
+    <p class="glitch">⚠ TU SISTEMA HA SIDO INFECTADO CON EL VIRUS LULA-COMECACA ⚠</p>
+    <p>Ahora la Lula te estará vigilando siempre por la cámara de tu móbil.<br>El virus se ha activado. Has caído en la típica trampa muejejeje</p>
+    <img src="../src/img/cursedlula.jpeg" alt="Imagen maldita">
+  </div>
+
+
+<script>
+  function comprobar() {
+    const respuestaCorrecta = "190922";
+    const input = document.getElementById("respuesta").value.trim();
+
+    if (input === respuestaCorrecta) {
+      document.getElementById("inicio").style.display = "none";
+      document.getElementById("virus").style.display = "block";
+    } else {
+      document.getElementById("error").textContent =
+        "❌ Respuesta incorrecta. Inténtalo otra vez.";
+    }
+  }
+</script>
+
+</body>
+</html>
