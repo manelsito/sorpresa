@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 20</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #08121a;
+    --panel: #071017;
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --gold: #d4a017;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  img {
+    max-width: 40%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    margin: 20px 0;
+  }
+
+  input {
+    width: 80%;
+    max-width: 320px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    margin-top: 10px;
+  }
+
+  input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  button {
+    margin-top: 16px;
+    padding: 12px 26px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    color: white;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+  }
+
+  .mensaje {
+    margin-top: 18px;
+    font-weight: 600;
+    min-height: 24px;
+  }
+
+  .error {
+    color: #ff6b6b;
+  }
+
+  .ok {
+    color: #4cd964;
+  }
+</style>
+</head>
+
+<body>
+  <div class="contenido">
+    <h1>¡Quedan 4 días!</h1>
+
+    <p>
+      Se acaba lo bueno... Para esta traca final he preparado 4 pruebas que desbloquearán
+      <strong>EL REGALITO DE NADAL</strong>.<br><br>
+
+      Durante los 4 días que quedan, aparte del detallito diario, tendrás una mini-prueba que superar.
+      Cuando llegue el día 24, solo si has superado las 4 pruebas, desbloquearás
+      <strong>EL REGALITO DE NADAL</strong>.<br><br>
+
+      Nervis??<br><br>
+
+      La Èlia cuando no consiga pasarse la primera prueba:
+    </p>
+
+    <img src="../src/img/eliatriste.jpg" alt="Èlia triste">
+    <br>
+
+    <p>Aquí te va la primera, sencillita:<br><strong>1206</strong></p>
+    <input id="respuesta" type="text" placeholder="Escribe tu respuesta" />
+    <br>
+    <button onclick="comprobar()">Comprobar</button>
+
+    <div id="mensaje" class="mensaje"></div>
+  </div>
+
+<script>
+  function comprobar() {
+    const input = document.getElementById("respuesta");
+    const mensaje = document.getElementById("mensaje");
+
+    const valor = input.value.trim().toLowerCase();
+    const correcta = "pipo";
+
+    if (valor === correcta) {
+      mensaje.textContent = "✅ ¡Correcto! Apuntate este numerín: 47.";
+      mensaje.className = "mensaje ok";
+      input.disabled = true;
+    } else {
+      mensaje.textContent = "❌ Respuesta incorrecta, inténtalo otra vez 💭";
+      mensaje.className = "mensaje error";
+    }
+  }
+</script>
+</body>
+</html>
