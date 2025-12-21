@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escape Room - Día 22</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #08121a;
+  --panel: #071017;
+  --red: #c22b2b;
+  --green: #1f7a3a;
+  --gold: #d4a017;
+  --accent: #f7f7f7;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+  color: var(--accent);
+}
+
+.contenido {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 40px 30px;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  max-width: 700px;
+  width: 90%;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 32px;
+  background: linear-gradient(90deg, var(--red), var(--green));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+}
+
+input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  margin-top: 10px;
+  width: 70%;
+  text-align: center;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  border-radius: 8px;
+  border: none;
+  background: var(--gold);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.oculto {
+  display: none;
+}
+
+.numero-final {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--gold);
+  margin-top: 20px;
+}
+
+.mensaje-error {
+  color: #f44336;
+  margin-top: 10px;
+  font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+<div class="contenido">
+
+  <h1>¡Quedan 2 días! - Mini escaperoom</h1>
+
+  <!-- FASE 1 -->
+  <div id="fase1">
+    <p>
+      🔐 <strong>Acertijo 1</strong><br>
+      Si tienes <strong>3 cacas de lula</strong> en una mano y <strong>4 cacas de lula</strong> en la otra,  
+      ¿cuántas cacas de lula tienes en total?
+    </p>
+    <input id="respuesta1" type="text" placeholder="Tu respuesta">
+    <br>
+    <button onclick="verificar1()">Comprobar</button>
+    <p id="mensaje1" class="mensaje-error"></p>
+  </div>
+
+  <!-- FASE 2 -->
+  <div id="fase2" class="oculto">
+    <p>
+      🔐 <strong>Acertijo 2</strong><br>
+      Escribe las dos palabras para completar la frase ☭:<br>
+      <em>De cada cual según su ______, a cada cual según su ______.</em>
+    </p>
+    <input id="respuesta2a" type="text" placeholder="Primera palabra">
+    <br><br>
+    <input id="respuesta2b" type="text" placeholder="Segunda palabra">
+    <br>
+    <button onclick="verificar2()">Comprobar</button>
+    <p id="mensaje2" class="mensaje-error"></p>
+  </div>
+
+  <!-- FASE 3 -->
+  <div id="fase3" class="oculto">
+    <p>
+      🔐 <strong>Acertijo 3</strong><br>
+      Endevinalla:<br>
+      <em>Té dents però no mossega,<br>
+      té boca però no menja.<br>
+      Què és?</em>
+    </p>
+    <input id="respuesta3" type="text" placeholder="La teva resposta">
+    <br>
+    <button onclick="verificar3()">Comprovar</button>
+    <p id="mensaje3" class="mensaje-error"></p>
+  </div>
+
+  <!-- FASE 4 -->
+  <div id="fase4" class="oculto">
+    <p>
+      🔐 <strong>Acertijo 4</strong><br>
+      Qui és la més guapita?
+    </p>
+    <input id="respuesta4" type="text" placeholder="La teva resposta">
+    <br>
+    <button onclick="verificar4()">Comprovar</button>
+    <p id="mensaje4" class="mensaje-error"></p>
+  </div>
+
+  <!-- FINAL -->
+  <div id="final" class="oculto">
+    <p>¡Molt be!</p>
+    <p>El número secreto de hoy es:</p>
+    <div class="numero-final">19</div>
+  </div>
+
+</div>
+
+<script>
+function verificar1() {
+  const r = document.getElementById("respuesta1").value.trim();
+  const mensaje = document.getElementById("mensaje1");
+  if (r === "7") {
+    mensaje.textContent = "";
+    document.getElementById("fase1").classList.add("oculto");
+    document.getElementById("fase2").classList.remove("oculto");
+  } else {
+    mensaje.textContent = "❌ Respuesta incorrecta, ¡inténtalo de nuevo!";
+  }
+}
+
+function verificar2() {
+  const r1 = document.getElementById("respuesta2a").value.toLowerCase().trim();
+  const r2 = document.getElementById("respuesta2b").value.toLowerCase().trim();
+  const mensaje = document.getElementById("mensaje2");
+
+  if (r1 === "capacidad" && r2 === "necesidad") {
+    mensaje.textContent = "";
+    document.getElementById("fase2").classList.add("oculto");
+    document.getElementById("fase3").classList.remove("oculto");
+  } else {
+    mensaje.textContent = "❌ Alguna de las palabras no es correcta, ¡prueba de nuevo!";
+  }
+}
+
+function verificar3() {
+  const r = document.getElementById("respuesta3").value.toLowerCase().trim();
+  const mensaje = document.getElementById("mensaje3");
+
+  if (r === "cremallera" || r === "la cremallera") {
+    mensaje.textContent = "";
+    document.getElementById("fase3").classList.add("oculto");
+    document.getElementById("fase4").classList.remove("oculto");
+  } else {
+    mensaje.textContent = "❌ Resposta incorrecta, prova-ho de nou!";
+  }
+}
+
+function verificar4() {
+  const r = document.getElementById("respuesta4").value.toLowerCase().trim();
+  const mensaje = document.getElementById("mensaje4");
+
+  if (r === "èlia" || r === "la èlia") {
+    mensaje.textContent = "";
+    document.getElementById("fase4").classList.add("oculto");
+    document.getElementById("final").classList.remove("oculto");
+  } else {
+    mensaje.textContent = "❌ Resposta incorrecta, prova-ho de nou!";
+  }
+}
+</script>
+
+</body>
+</html>
