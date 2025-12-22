@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Día 23</title>
+<style>
+  .puzzle {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 3px;
+  }
+  .pieza {
+    background-size: 500% 500%;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .seleccionada {
+    outline: 3px solid yellow;
+  }
+  :root {
+    --bg: #08121a;
+    --panel: #071017;
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --gold: #d4a017;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    place-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+<body>
+
+<div class="contenido">
+  <h1>DÍA 23: OTRO PUZZLEEE</h1>
+  <!-- Cambia "foto.jpg" por tu imagen del proyecto -->
+  <div class="puzzle" id="puzzle"></div>
+  <div id="msg"></div>
+
+  <div id="secreto" style="display:none; margin-top:20px;">
+    <p><strong>P397</strong>:</p>
+
+    <input 
+      type="text" 
+      id="codigoInput" 
+      placeholder=""
+      style="padding:10px; border-radius:8px; border:none; width:200px;"
+    />
+
+    <button 
+      onclick="comprobarCodigo()"
+      style="margin-left:10px; padding:10px 15px; border-radius:8px; border:none; cursor:pointer;">
+      Enviar
+    </button>
+
+    <p id="textoFinal" style="margin-top:20px; display:none; color:#d4a017;">
+      wiwi
+    </p>
+  </div>
+
+</div>
+
+<script>
+  const img = "../src/img/manel-lector.jpeg"; // ← CAMBIA ESTO
+  const puzzle = document.getElementById("puzzle");
+  const msg = document.getElementById("msg");
+
+  const piezas = [];
+  let orden = [];
+  let seleccion = null;
+
+  const SIZE = 5;
+  const TOTAL = SIZE * SIZE;
+
+  function crearPiezas() {
+    orden = [...Array(TOTAL).keys()];
+
+    orden.sort(() => Math.random() - 0.5); // Mezclar
+
+    puzzle.innerHTML = "";
+
+    for (let i = 0; i < TOTAL; i++) {
+      const piezaReal = orden[i];
+
+      const fila = Math.floor(piezaReal / SIZE);
+      const col = piezaReal % SIZE;
+
+      const div = document.createElement("div");
+      div.className = "pieza";
+      div.dataset.index = i;
+      div.dataset.correcto = piezaReal;
+      div.style.backgroundImage = `url(${img})`;
+      div.style.backgroundPosition = `${(col / (SIZE - 1)) * 100}% ${(fila / (SIZE - 1)) * 100}%`;
+
+      div.addEventListener("click", () => seleccionar(i));
+
+      piezas[i] = div;
+      puzzle.appendChild(div);
+    }
+  }
+
+  function seleccionar(i) {
+    if (seleccion === null) {
+      seleccion = i;
+      piezas[i].classList.add("seleccionada");
+    } else if (seleccion === i) {
+      piezas[i].classList.remove("seleccionada");
+      seleccion = null;
+    } else {
+      intercambiar(seleccion, i);
+      piezas[seleccion].classList.remove("seleccionada");
+      seleccion = null;
+      comprobarVictoria();
+    }
+  }
+
+  function intercambiar(a, b) {
+    const temp = orden[a];
+    orden[a] = orden[b];
+    orden[b] = temp;
+    refrescar();
+  }
+
+  function refrescar() {
+    for (let i = 0; i < TOTAL; i++) {
+      const piezaReal = orden[i];
+      const fila = Math.floor(piezaReal / SIZE);
+      const col = piezaReal % SIZE;
+      piezas[i].style.backgroundPosition = `${(col / (SIZE - 1)) * 100}% ${(fila / (SIZE - 1)) * 100}%`;
+      piezas[i].dataset.correcto = piezaReal;
+    }
+  }
+
+  function comprobarVictoria() {
+    const ok = orden.every((val, idx) => val === idx);
+    if (ok) {
+      msg.textContent = "🎉 ¡Puzzle completado!";
+      document.getElementById("secreto").style.display = "block";
+    }
+  }
+
+  function comprobarCodigo() {
+    const codigoCorrecto = "71834"; 
+    const input = document.getElementById("codigoInput").value;
+    const textoFinal = document.getElementById("textoFinal");
+
+    if (input === codigoCorrecto) {
+      textoFinal.style.display = "block";
+      textoFinal.textContent = "Ole tuuu, último numeritoo: 91";
+    } else {
+      textoFinal.style.display = "block";
+      textoFinal.textContent = "❌ Código incorrecto. Inténtalo de nuevo.";
+    }
+  }
+
+
+
+  crearPiezas();
+</script>
+</body>
+</html>
