@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día 24</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --red: #c22b2b;
+    --green: #1f7a3a;
+    --accent: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    background: linear-gradient(180deg, #04121a 0%, #071828 60%);
+    color: var(--accent);
+    overflow-y: auto;
+  }
+
+  .contenido {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 40px 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    max-width: 700px;
+    width: 90%;
+  }
+
+  h1 {
+    margin-top: 0;
+    font-size: 32px;
+    background: linear-gradient(90deg, var(--red), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px 22px;
+    border-radius: 10px;
+    border: none;
+    background: var(--green);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .resultado {
+    display: none;
+    margin-top: 30px;
+  }
+
+  img {
+    max-width: 30%;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+</style>
+</head>
+
+<body>
+  <div class="contenido">
+    <h1>¡AAAAAAAAAAA!</h1>
+    <p>Això s'acaba... :( <br>Desbloquea el final del calendario: suma los 4 numerines de los 4 días anteriores.</p>
+
+    <input type="text" id="respuesta" placeholder="Escribe tu respuesta">
+    <br>
+    <button onclick="comprobar()">Responder</button>
+
+    <div class="resultado" id="resultado">
+      <p><strong>Molt bé!</strong> Ya le puedes pedir tu regalito al Manellll!!</p>
+
+      <img src="../src/img/regalo.jpeg" alt="Imagen sorpresa">
+
+      <p>Novieta, espero que te haya gustado mucho el calendario. Me lo he pasado muy bien haciéndolo, espero que se haya notado :). <br>
+        Me lo pongo difícil para el año que viene... pero bueno ya pensaré algo.😁 <br>
+        Sé que no es un día (del calendario) súper especial, pero quería despedirme de este regalito bien.
+        Mi carta de amor sobre todo fue el video del dia 19, que parece que me ha gustado más a mi😋😋. <br>
+        Tengo que confesarte... No sabes cuanto he buscado LA taza... No he podido cumplir😭. He visitado todos los pepco habidos y por haber, pero en todos decian que ya no la tenian.
+        He liado hasta a la mama para esto😄.<br>
+        SIN EMBARGO, después de mi ultimo intento en el baricentro de Sabadell😉😉, encontré una tea shop. Entré y te compré un detallito, cuando quieras te lo doy.<br><br>
+        El Manel programador se despide ya por fin. Te quiero muchomucho, espero que te hayas reido mucho con mis tonterias y que te hayan gustado mis cursiladas.<br>
+        Te diria feliz Navidad pero... Habrá pasado ya Navidad cuando hayas conseguido completar las 4 pruebas??? Vuremmm😄<br>
+        Un besito guapita❤️.
+      </p>
+    </div>
+  </div>
+
+<script>
+  function comprobar() {
+    const correcta = "224"; // 47, 67, 19, 91 = 224
+    const user = document.getElementById("respuesta").value.toLowerCase().trim();
+
+    if (user === correcta) {
+      document.getElementById("resultado").style.display = "block";
+    } 
+  }
+</script>
+
+</body>
+</html>
